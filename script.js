@@ -1,66 +1,40 @@
 "use strict";
-/*
- * Complete the 'fizzBuzz' function below.
- *
- * The function accepts INTEGER n as parameter.
- */
+const URL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=124b078b3a77d5719ea1f5da1969d540"
+const imgPath = 'https://image.tmdb.org/t/p/w500'
+const searchURL = "https://api.themoviedb.org/3/search/movie?&api_key=124b078b3a77d5719ea1f5da1969d540&q='"
 
-// function fizzBuzz(no) {
-//   // Write your code here
-//   if (no % 3 === 0 && no % 5 === 0) {
-//     console.log("FizzBuzz");
-//   } else if (no % 3 === 0) {
-//     console.log("Fizz");
-//   } else if (no % 5 === 0) {
-//     console.log("Buzz");
-//   } else {
-//     console.log(no);
-//   }
-// }
-// function next(num) {
-//   for (let i = 1; i <= num; i++) {
-//     fizzBuzz(i);
-//   }
-// }
-// next(15);
-
-// const arr = [-4, 3, -9, 6, 0, 1];
-// const posi = arr.filter(num => num > 0);
-// const nega = arr.filter(num => num < 0);
-// const zero = arr.filter(num => (num === 0));
-// console.log((posi.length / arr.length).toFixed(6));
-// console.log((nega.length / arr.length).toFixed(6));
-// console.log((zero.length / arr.length).toFixed(6));
-
-// let n1 = 0;
-// let n2 = 1;
-// const fibonacciSeries = function (num) {
-//   console.log(n1);
-//   console.log(n2);
-//   for (let i = 0; i <= num; i++) {
-//     const next = n1 + n2;
-//     console.log(next);
-//     n1 = n2;
-//     n2 = next;
-//   }
-// };
-// fibonacciSeries(10);
-document.querySelector("main").innerHTML = ''
-const containerData = document.querySelector("main");
+// API Key - 124b078b3a77d5719ea1f5da1969d540
+document.querySelector('main').innerHTML=''
+const container = document.querySelector('main');
 const res = async function (API) {
   const data1 = await fetch(API);
   const data = await data1.json();
-  const resources = data.data;
-  // console.log(resources[0]);
-  resources.forEach(res => {
+  const resources = data.results;
+  console.log(resources[0]);
+  resources.forEach(element => {
     const html = `<div class="movie">
-            <img src="${res.anime_img}" alt="" />
-          <div class="name">
-              <h3 class="heading">${res.anime_name}</h3>
-          </div>
-      </div>`;
-    console.log(res);
-    containerData.insertAdjacentHTML("beforeend", html);
+    <img src=${element.poster_path} alt="" />
+    <div class="name">
+      <h3 class="heading">${element.original_title}</h3>
+      <span class="green">${element.vote_average}</span>
+    </div>
+    <div class="review">
+     ${element.overview}
+    </div>
+  </div>`
+  container.insertAdjacentHTML("beforeend", html);
   });
 };
-res("https://anime-facts-rest-api.herokuapp.com/api/v1");
+res(URL);
+const form = document.querySelector('#form');
+const search = document.querySelector('#search');
+form.addEventListener('submit',(e)=>{
+  e.preventDefault();
+  const searchTerm = search.value;
+if (searchTerm && searchTerm === ''){
+  res(searchURL+searchTerm)
+  search.value = ''
+}else {
+  window.location.reload()
+}
+})
