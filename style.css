@@ -5,18 +5,22 @@
   background-color: var(--secondary-color);
 }
 :root {
-  --primary-color: #22254b;
-  --secondary-color: #373b69;
+  --primary-color: #EFFFFD;
+  --secondary-color: #F6E7D8;
 }
 form {
   display: flex;
   justify-content: flex-end;
   margin: 1rem;
 }
-.search {
-  border-radius: 10px;
+ input{
+  border-radius: 20px;
   padding: 0.5rem 1rem;
   background-color: var(--primary-color);
+  font-size: 1rem;
+}
+input::placeholder{
+  color: #151D3B;
 }
 .movie {
   width: 300px;
@@ -38,12 +42,15 @@ main {
   padding: 0 0.3rem;
 }
 .name span {
-  background-color: var(--primary-color);
+  background-color: #22254b;
   padding: 0.3rem;
-  border-radius: 5px;
+  border-radius: 50%;
+  position: absolute;
+  right: 25px;
+  top: 15px;
 }
 span.green {
-  color: lightgreen;
+  color: green;
 }
 span.orange {
   color: orange;
@@ -62,11 +69,11 @@ span.red {
   right: 0;
   margin: 1rem;
   max-height: 100%;
-  transform: translateY(110%);
+  transform: translateY(112%);
   transition: 0.5s ease-in;
-  display: none;
+  opacity: 0;
 }
 .movie:hover .review{
-    display: block;
-    transform: translateY(-12%);
+    opacity: 1;
+    transform: translateY(4%);
 }
